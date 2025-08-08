@@ -70,14 +70,17 @@ cd lucknow-metro-fare-calculator
 
 Simply open `index.html` in your preferred browser:
 
+#### For Windows
 ```bash
-start index.html        # Windows
+start index.html       
 ```
+#### For macs
 ```bash
-open index.html         # macOS
+open index.html       
 ```
+#### For linux
 ```bash
-xdg-open index.html     # Linux
+xdg-open index.html    
 ```
 
 > 💡 No dependencies or server required. It runs completely in the browser!
