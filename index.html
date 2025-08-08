@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lucknow Metro Fare Calculator</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  
+  <div class="container">
+    <h1>Lucknow Metro Fare Calculator</h1>
+    
+    <form id="fareCalculator">
+      <div class="form-group">
+        <label for="start">Starting Station</label>
+        <select id="start" name="start" required>
+          <option value="">Select starting station</option>
+          <!-- Station options -->
+          <option value="CCS Airport">CCS Airport</option>
+          <option value="Amausi">Amausi</option>
+          <option value="Transport Nagar">Transport Nagar</option>
+          <option value="Krishna Nagar">Krishna Nagar</option>
+          <option value="Singar Nagar">Singar Nagar</option>
+          <option value="Alambagh">Alambagh</option>
+          <option value="Alambagh Bus Stand">Alambagh Bus Stand</option>
+          <option value="Mawaiya">Mawaiya</option>
+          <option value="Durgapuri">Durgapuri</option>
+          <option value="Charbagh Railway Station">Charbagh Railway Station</option>
+          <option value="Hussainganj">Hussainganj</option>
+          <option value="Sachivalaya">Sachivalaya</option>
+          <option value="Hazratganj">Hazratganj</option>
+          <option value="KD Singh Babu Stadium">KD Singh Babu Stadium</option>
+          <option value="Lucknow University">Lucknow University</option>
+          <option value="IT College">IT College</option>
+          <option value="Badshah Nagar">Badshah Nagar</option>
+          <option value="Lekhraj Market">Lekhraj Market</option>
+          <option value="Bhootnath Market">Bhootnath Market</option>
+          <option value="Indira Nagar">Indira Nagar</option>
+          <option value="Munshipulia">Munshipulia</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="destination">Destination Station</label>
+        <select id="destination" name="destination" required>
+          <option value="">Select destination station</option>
+          <!-- Same station list -->
+          <option value="CCS Airport">CCS Airport</option>
+          <option value="Amausi">Amausi</option>
+          <option value="Transport Nagar">Transport Nagar</option>
+          <option value="Krishna Nagar">Krishna Nagar</option>
+          <option value="Singar Nagar">Singar Nagar</option>
+          <option value="Alambagh">Alambagh</option>
+          <option value="Alambagh Bus Stand">Alambagh Bus Stand</option>
+          <option value="Mawaiya">Mawaiya</option>
+          <option value="Durgapuri">Durgapuri</option>
+          <option value="Charbagh Railway Station">Charbagh Railway Station</option>
+          <option value="Hussainganj">Hussainganj</option>
+          <option value="Sachivalaya">Sachivalaya</option>
+          <option value="Hazratganj">Hazratganj</option>
+          <option value="KD Singh Babu Stadium">KD Singh Babu Stadium</option>
+          <option value="Lucknow University">Lucknow University</option>
+          <option value="IT College">IT College</option>
+          <option value="Badshah Nagar">Badshah Nagar</option>
+          <option value="Lekhraj Market">Lekhraj Market</option>
+          <option value="Bhootnath Market">Bhootnath Market</option>
+          <option value="Indira Nagar">Indira Nagar</option>
+          <option value="Munshipulia">Munshipulia</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="calculateFare()" id="calculateBtn">
+        <span class="btn-text">Calculate Fare</span>
+        <span class="loading" style="display: none;"></span>
+      </button>
+    </form>
+
+    <div class="result" id="fareResult"></div>
+  </div>
+
+  <script>
+    function calculateFare() {
+      const start = document.getElementById('start').value;
+      const destination = document.getElementById('destination').value;
+      const resultDiv = document.getElementById('fareResult');
+      const calculateBtn = document.getElementById('calculateBtn');
+      const btnText = calculateBtn.querySelector('.btn-text');
+      const loading = calculateBtn.querySelector('.loading');
+
+      if (!start || !destination) {
+        showResult('Please select both starting and destination stations', 'error');
+        return;
+      }
+
+      if (start === destination) {
+        showResult('Starting and destination stations cannot be the same', 'error');
+        return;
+      }
+
+      btnText.style.display = 'none';
+      loading.style.display = 'inline-block';
+      calculateBtn.disabled = true;
+
+      setTimeout(() => {
+        const stations = calculateStations(start, destination);
+        const fare = calculateFarePrice(stations);
+        const estimatedTime = stations * 2;
+
+        const resultText = `₹${fare}`;
+        const detailsText = `
+          ${stations} station${stations > 1 ? 's' : ''} • ${start} → ${destination}<br>
+          ⏱ Estimated travel time: ${estimatedTime} minute${estimatedTime > 1 ? 's' : ''}
+        `;
+
+        showResult(`${resultText}<br><small>${detailsText}</small>`, 'success');
+
+        btnText.style.display = 'inline';
+        loading.style.display = 'none';
+        calculateBtn.disabled = false;
+      }, 800);
+    }
+
+    function showResult(message, type = 'success') {
+      const resultDiv = document.getElementById('fareResult');
+      resultDiv.innerHTML = message;
+      resultDiv.className = `result ${type}`;
+
+      setTimeout(() => {
+        resultDiv.classList.add('show');
+      }, 100);
+    }
+
+    function calculateStations(start, destination) {
+      const stationList = [
+        "CCS Airport", "Amausi", "Transport Nagar", "Krishna Nagar", "Singar Nagar",
+        "Alambagh", "Alambagh Bus Stand", "Mawaiya", "Durgapuri", "Charbagh Railway Station",
+        "Hussainganj", "Sachivalaya", "Hazratganj", "KD Singh Babu Stadium", "Lucknow University",
+        "IT College", "Badshah Nagar", "Lekhraj Market", "Bhootnath Market", "Indira Nagar", "Munshipulia"
+      ];
+
+      const startIndex = stationList.indexOf(start);
+      const endIndex = stationList.indexOf(destination);
+
+      if (startIndex > -1 && endIndex > -1) {
+        return Math.abs(endIndex - startIndex);
+      }
+
+      return 0;
+    }
+
+    function calculateFarePrice(stations) {
+      if (stations === 1) return 10;
+      if (stations === 2) return 15;
+      if (stations >= 3 && stations <= 6) return 20;
+      if (stations >= 7 && stations <= 9) return 30;
+      if (stations >= 10 && stations <= 13) return 40;
+      if (stations >= 14 && stations <= 17) return 50;
+      if (stations >= 18) return 60;
+      return 0;
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        calculateFare();
+      }
+    });
+
+    document.getElementById('start').addEventListener('change', validateForm);
+    document.getElementById('destination').addEventListener('change', validateForm);
+
+    function validateForm() {
+      const start = document.getElementById('start').value;
+      const destination = document.getElementById('destination').value;
+      const calculateBtn = document.getElementById('calculateBtn');
+
+      if (start && destination && start !== destination) {
+        calculateBtn.style.opacity = '1';
+        calculateBtn.style.cursor = 'pointer';
+      } else {
+        calculateBtn.style.opacity = '0.7';
+        calculateBtn.style.cursor = 'not-allowed';
+      }
+    }
+
+    validateForm();
+  </script>
+</body>
+</html>
