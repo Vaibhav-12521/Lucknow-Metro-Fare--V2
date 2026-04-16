@@ -9,7 +9,7 @@ A sleek, modern, and interactive web application for calculating metro fares bet
 
 * 🚉 **Select Starting and Destination Stations**
 * 💰 **Instant Fare Calculation Based on Distance**
-* ⏱ **Estimated Travel Time Calculation**
+* ⏱ **Estimated Travel Time Calculation** 
 * ✨ **Beautiful UI with Animated Backgrounds**
 * 📱 **Responsive Design for Mobile Devices**
 * ⚡ **Smooth UI Feedback with Loading Spinner**
