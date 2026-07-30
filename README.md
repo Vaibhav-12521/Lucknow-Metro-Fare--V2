@@ -60,10 +60,10 @@ Travel time is estimated at **2 minutes per station**.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/lucknow-metro-fare-calculator.git
+git clone https://github.com/Vaibhav-12521/Lucknow-Metro-Fare--V2.git
 ```
 ```bash
-cd lucknow-metro-fare-calculator
+cd Lucknow-Metro-Fare--V2
 ```
 
 ### 2. Open in Browser
@@ -84,6 +84,14 @@ xdg-open index.html
 ```
 
 > 💡 No dependencies or server required. It runs completely in the browser!
+
+### 3. Run from GitHub Pages (Default URL)
+
+Open the app directly using the default GitHub Pages URL:
+
+```text
+https://vaibhav-12521.github.io/Lucknow-Metro-Fare--V2/
+```
 
 ---
 
@@ -136,4 +144,3 @@ This project is open-source and available under the [MIT License](LICENSE).
 ## ✨ Credits
 
 Developed with ❤️ by Vaibhav
-
